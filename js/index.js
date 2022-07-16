@@ -40,6 +40,9 @@ formElement.addEventListener('submit', e => {
     renderMonsters(newMonster)
     formElement.reset()
     console.log("hello")
+    
+function postMonsterToServer()
+    
     //FETCH TO POST 
         //     fetch('http://localhost:3000/monsters', {
         //     Method: 'POST',
@@ -50,18 +53,26 @@ formElement.addEventListener('submit', e => {
         //     Body: JSON.stringify()
         // })
 })
+fetch ('http://localhost:3000/monsters', {
 
-    fetch ('http://localhost:3000/monsters', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json',
-            Accept: 'application/json'
-    },
-        body: { name: string, age: number, description: string}
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify( {
+
     })
-        .then(res => res.json())
-        .then(aFreshMonster => {
-            renderMonster(aFreshMonster)
-        })
+})
+
+    // fetch ('http://localhost:3000/monsters', {
+    //     method: 'POST',
+    //     headers: {'Content-Type': 'application/json',
+    //         Accept: 'application/json'
+    // },
+    //     body: { name: string, age: number, description: string}
+    // })
+    //     .then(res => res.json())
+    //     .then(aFreshMonster => {
+    //         renderMonster(aFreshMonster)
+    //     })
 
 
 
