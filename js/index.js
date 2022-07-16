@@ -1,4 +1,83 @@
 
+//http://localhost:3000/monsters
+//http://localhost:3000/monsters/?_limit=20&_page=3
+
+fetch('http://localhost:3000/monsters')
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+fetch('http://localhost:3000/monsters/?_limit=50&_page=1')
+    .then(res => res.json())
+    .then(dataArray => {
+        dataArray.forEach(dataObj => {
+            renderMonsters(dataObj)
+        })
+    })
+
+function renderMonsters(dataObj) {
+    const monsterContainer = document.getElementById('monster-container')
+    const monsterName = document.createElement('h2')
+    const monsterAge = document.createElement('p')
+    const monsterDescription = document.createElement('p')
+
+    monsterName.textContent = dataObj.name
+    monsterAge.textContent = "age: " + dataObj.age
+    monsterDescription.textContent = "description: " + dataObj.description
+
+    monsterContainer.append(monsterName, monsterAge, monsterDescription)
+}
+    
+const formElement = document.querySelector(".form")
+
+//CREATE NEW MONSTER FORM 
+formElement.addEventListener('submit', e => {
+    e.preventDefault()
+    const newMonster = {
+        name: e.target.name.value,
+        age: e.target.age.value,
+        description: e.target.description.value
+    }
+    renderMonsters(newMonster)
+    formElement.reset()
+    console.log("hello")
+    //FETCH TO POST 
+        //     fetch('http://localhost:3000/monsters', {
+        //     Method: 'POST',
+        //     Headers: {
+        //         'Content-Type': 'application/json',
+        //         Accept: 'application/json',
+        //     },
+        //     Body: JSON.stringify()
+        // })
+})
+
+    fetch ('http://localhost:3000/monsters', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json',
+            Accept: 'application/json'
+    },
+        body: { name: string, age: number, description: string}
+    })
+        .then(res => res.json())
+        .then(aFreshMonster => {
+            renderMonster(aFreshMonster)
+        })
+
+
+
+//LOAD NEXT 50 MONSTERS 
+const forwardBtn = document.getElementById("forward")
+forwardBtn.addEventListener('click', e => {
+    e.preventDefault
+    fetch('http://localhost:3000/monsters/?_limit=50&_page=2')
+    .then(res => res.json())
+    .then(dataArray => {
+        dataArray.forEach(dataObj => {
+            renderMonsters(dataObj)
+        })
+    })  
+    console.log("hello button")
+})
 
 
 
@@ -8,10 +87,13 @@
 
 
 
+//2.b should update the API with a POST request
 
 
 
 
+
+ 
 
 
 
@@ -146,15 +228,15 @@
 // })
  
 
-// //     fetch (baseURL, {
-// //         method: 'POST',
-// //         headers: {'Content-Type': 'application/json',
-// //             Accept: 'application/json'
-// //     },
-// //         body: { name: string, age: number, description: string }
-// //     })
-// //         .then(res => res.json())
-// //         .then(aFreshMonster => {
-// //             renderMonster(aFreshMonster)
-// //         })
-// // //})
+//     fetch (baseURL, {
+//         method: 'POST',
+//         headers: {'Content-Type': 'application/json',
+//             Accept: 'application/json'
+//     },
+//         body: { name: string, age: number, description: string }
+//     })
+//         .then(res => res.json())
+//         .then(aFreshMonster => {
+//             renderMonster(aFreshMonster)
+//         })
+// //})
